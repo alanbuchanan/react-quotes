@@ -12,6 +12,7 @@ var TweetBtn = React.createClass({
     render: function () {
 
         var body = encodeURI(this.props.quote.body);
+        body = body.replace(/;/gi, " -");
         var author = encodeURI(this.props.quote.author);
 
         var formattedQuote = "\"" + body + "\" - " + author;
