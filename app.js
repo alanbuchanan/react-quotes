@@ -10,8 +10,18 @@ var QuoteBox = React.createClass({
 
 var TweetBtn = React.createClass({
     render: function () {
+
+        var body = encodeURI(this.props.quote.body);
+        var author = encodeURI(this.props.quote.author);
+
+        var formattedQuote = "\"" + body + "\" - " + author;
+
+        var link = "https://twitter.com/intent/tweet?text=" + formattedQuote;
+
         return (
-            <button disabled>Tweet</button>
+            <a className="twitter-share-button" href={link} data-size="large">
+                Tweet
+            </a>
         )
     }
 })
@@ -39,7 +49,7 @@ var Main = React.createClass({
     },
 
     getInitialState: function () {
-        return {currentQuote: {}};
+        return {currentQuote: this.randomQuote()};
     },
     
     randomQuote: function () {
@@ -56,7 +66,7 @@ var Main = React.createClass({
             <div>
                 <Button generate={this.handleGenerate}/>
                 <QuoteBox quote={this.state.currentQuote}/>
-                <TweetBtn></TweetBtn>
+                <TweetBtn quote={this.state.currentQuote}></TweetBtn>
             </div>
         )
     }
