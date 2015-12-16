@@ -2,8 +2,16 @@ var QuoteBox = React.createClass({
     render: function () {
         return (
             <div>
-                "All's well that ends well. - Someone
+                '{this.props.quote.body}' - {this.props.quote.author}
             </div>
+        )
+    }
+});
+
+var TweetBtn = React.createClass({
+    render: function () {
+        return (
+            <button disabled>Tweet</button>
         )
     }
 })
@@ -11,7 +19,7 @@ var QuoteBox = React.createClass({
 var Button = React.createClass({
     render: function () {
         return (
-            <button>Generate</button>
+            <button onClick={this.props.generate}>Generate</button>
         )
     }
 });
@@ -21,23 +29,34 @@ var Main = React.createClass({
     getDefaultProps: function () {
         return {
             quotes: [
-                {body: 'I like everything but chocolate.', author: 'Mike Hock'},
-                {body: 'Chocolate. Chocolate is great.', author: 'Lege Ende'},
+                {body: 'Life is 10% what happens to you and 90% how you react to it.', author: 'Charles R. Swindoll'},
+                {body: 'How people treat you is their karma; how you react is yours.', author: 'Wayne Dyer'},
+                {body: 'It\'s not what happens to you, but how you react to it that matters.', author: 'Epictetus'},
+                {body: 'People react to fear, not love; they don\'t teach that in Sunday School, but it\'s true.', author: 'Richard M. Nixon'},
+                {body: 'When we meet real tragedy in life, we can react in two ways - either by losing hope and falling into self-destructive habits, or by using the challenge to find our inner strength. Thanks to the teachings of Buddha, I have been able to take this second way.', author: 'Dalai Lama'},
             ]
         }
     },
+
+    getInitialState: function () {
+        return {currentQuote: {}};
+    },
     
     randomQuote: function () {
-        return this.props.quotes[Math.floor(Math.random() * 2)]
+        return this.props.quotes[Math.floor(Math.random() * this.props.quotes.length)]
+    },
+
+    handleGenerate: function () {
+        this.setState({currentQuote: this.randomQuote()});
     },
 
     render: function () {
 
-        console.log(this.randomQuote());
         return (
             <div>
-                <Button />
-                <QuoteBox />
+                <Button generate={this.handleGenerate}/>
+                <QuoteBox quote={this.state.currentQuote}/>
+                <TweetBtn></TweetBtn>
             </div>
         )
     }
