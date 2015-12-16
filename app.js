@@ -3,7 +3,8 @@ var QuoteBox = React.createClass({
 
         return (
             <div className="QuoteBox">
-                <div className="QuoteText">'{this.props.quote.quoteText}'</div>
+                <br/>
+                <div className="QuoteText">{this.props.quote.quoteText}</div>
                 <div className="QuoteAuthor">{this.props.quote.quoteAuthor}</div>
             </div>
         )
@@ -22,9 +23,12 @@ var TweetBtn = React.createClass({
         var link = "https://twitter.com/intent/tweet?text=" + formattedQuote;
 
         return (
-            <a className="Twitter" href={link} data-size="large">
-                Tweet
-            </a>
+            <div className="TweetBtnContainer">
+                <br/>
+                <a className="Twitter" href={link} data-size="large">
+                    Tweet this quote
+                </a>
+            </div>
         )
     }
 })
@@ -32,7 +36,9 @@ var TweetBtn = React.createClass({
 var Button = React.createClass({
     render: function () {
         return (
-            <button className="Button" onClick={this.props.generate}>Generate</button>
+            <div className="ButtonContainer">
+                <button className="Button btn btn-success" onClick={this.props.generate}>Generate</button>
+            </div>
         )
     }
 });
