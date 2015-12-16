@@ -1,8 +1,10 @@
 var QuoteBox = React.createClass({
     render: function () {
+
         return (
-            <div>
-                '{this.props.quote.quoteText}' - {this.props.quote.quoteAuthor}
+            <div className="QuoteBox">
+                <div className="QuoteText">'{this.props.quote.quoteText}'</div>
+                <div className="QuoteAuthor">{this.props.quote.quoteAuthor}</div>
             </div>
         )
     }
@@ -20,7 +22,7 @@ var TweetBtn = React.createClass({
         var link = "https://twitter.com/intent/tweet?text=" + formattedQuote;
 
         return (
-            <a className="twitter-share-button" href={link} data-size="large">
+            <a className="Twitter" href={link} data-size="large">
                 Tweet
             </a>
         )
@@ -30,25 +32,12 @@ var TweetBtn = React.createClass({
 var Button = React.createClass({
     render: function () {
         return (
-            <button onClick={this.props.generate}>Generate</button>
+            <button className="Button" onClick={this.props.generate}>Generate</button>
         )
     }
 });
 
 var Main = React.createClass({
-
-    getDefaultProps: function () {
-        return {
-            quotes: [
-                {body: 'Life is 10% what happens to you and 90% how you react to it.', author: 'Charles R. Swindoll'},
-                {body: 'How people treat you is their karma; how you react is yours.', author: 'Wayne Dyer'},
-                {body: 'It\'s not what happens to you, but how you react to it that matters.', author: 'Epictetus'},
-                {body: 'People react to fear, not love; they don\'t teach that in Sunday School, but it\'s true.', author: 'Richard M. Nixon'},
-                {body: 'When we meet real tragedy in life, we can react in two ways - either by losing hope and falling into self-destructive habits, or by using the challenge to find our inner strength. Thanks to the teachings of Buddha, I have been able to take this second way.', author: 'Dalai Lama'},
-            ]
-        }
-    },
-
 
     getInitialState: function () {
         return {
@@ -56,12 +45,10 @@ var Main = React.createClass({
         }
     },
 
-
     getQuote: function () {
         var link = 'http://api.forismatic.com/api/1.0/?method=getQuote&format=jsonp';
         $.getJSON("http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=jsonp&jsonp=?")
             .done(function (data) {
-                console.log('done', data);
                 this.setState({currentQuote: data})
             }.bind(this))
             .fail(function (err) {
@@ -78,13 +65,14 @@ var Main = React.createClass({
         this.getQuote();
     },
 
+
     render: function () {
 
         return (
-            <div>
+            <div className="Main">
                 <Button generate={this.handleGenerate}/>
                 <QuoteBox quote={this.state.currentQuote}/>
-                <TweetBtn quote={this.state.currentQuote}></TweetBtn>
+                <TweetBtn quote={this.state.currentQuote}/>
             </div>
         )
     }

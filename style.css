@@ -1,0 +1,41 @@
+body {
+    background-color: lightgray;
+    font-family: 'Great Vibes', cursive;
+}
+
+div {
+    color: gray;
+}
+
+#root {
+
+}
+
+.QuoteBox {
+    font-size: 2em;
+    text-align: center;
+    background-color: whitesmoke;
+    border-radius: 10%;
+    /*width: 50%;*/
+}
+
+.QuoteText {
+    color: purple;
+}
+
+.QuoteAuthor {
+    font-size: 0.5em;
+    font-family: 'Roboto', sans-serif;
+}
+
+.Twitter {
+    color: blue;
+}
+
+.Button {
+    color: green;
+}
+
+.Main {
+
+}
