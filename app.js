@@ -2,7 +2,7 @@ var QuoteBox = React.createClass({
     render: function () {
         return (
             <div>
-                '{this.props.quote.body}' - {this.props.quote.author}
+                '{this.props.quote.quoteText}' - {this.props.quote.quoteAuthor}
             </div>
         )
     }
@@ -11,9 +11,9 @@ var QuoteBox = React.createClass({
 var TweetBtn = React.createClass({
     render: function () {
 
-        var body = encodeURI(this.props.quote.body);
+        var body = encodeURI(this.props.quote.quoteText);
         body = body.replace(/;/gi, " -");
-        var author = encodeURI(this.props.quote.author);
+        var author = encodeURI(this.props.quote.quoteAuthor);
 
         var formattedQuote = "\"" + body + "\" - " + author;
 
@@ -49,16 +49,33 @@ var Main = React.createClass({
         }
     },
 
+
     getInitialState: function () {
-        return {currentQuote: this.randomQuote()};
+        return {
+            currentQuote: {}
+        }
     },
-    
-    randomQuote: function () {
-        return this.props.quotes[Math.floor(Math.random() * this.props.quotes.length)]
+
+
+    getQuote: function () {
+        var link = 'http://api.forismatic.com/api/1.0/?method=getQuote&format=jsonp';
+        $.getJSON("http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=jsonp&jsonp=?")
+            .done(function (data) {
+                console.log('done', data);
+                this.setState({currentQuote: data})
+            }.bind(this))
+            .fail(function (err) {
+                console.log('err:', err);
+            });
+
     },
 
     handleGenerate: function () {
-        this.setState({currentQuote: this.randomQuote()});
+        this.getQuote();
+    },
+
+    componentDidMount: function () {
+        this.getQuote();
     },
 
     render: function () {
